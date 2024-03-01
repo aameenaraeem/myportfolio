@@ -536,6 +536,7 @@ body {
 .site-title a {
     color: #2f2f2f;
     text-decoration: none;
+    font-family:var(--font-2);
 }
 
 .site-description {
