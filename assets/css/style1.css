@@ -731,6 +731,7 @@ body {
     position: relative;
     font-size: 18px;
     font-weight: 400;
+    font-family: var(--font-1);
 }
 
 .s-intro__content-pretitle::before {
@@ -956,6 +957,7 @@ body {
     .s-intro__content-title {
         font-size: 30px;
         line-height: 40px;
+        font-family: var(--font-2);
     }
 
     .s-intro__content-media .lines {
@@ -1231,6 +1233,7 @@ body {
     margin-bottom: 30px;
     font-size: 16px;
     font-weight: 300;
+    font-family: var(--font-1);
    
 }
 
@@ -1238,9 +1241,11 @@ body {
     color: var(--color-1);
     font-weight: 500;
     font-size: 18px;
+    font-family: var(--font-1);
 }
 .about-text h1{
     font-size: 40px;
+    font-family: var(--font-2);
   
 }
 
@@ -1290,6 +1295,7 @@ body {
 .contact-info-area .contact-caption p {
     margin-bottom: 40px;
     font-size: 16px;
+    font-family: var(--font-1);
 }
 
 .contact-info-area .contact-wrapper input {
