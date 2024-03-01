@@ -29,6 +29,25 @@ p{
  
 }
 
+@media screen and (max-width: 760px) {
+    h1,
+    .h1 {
+        font-family: var(--font-2);
+        font-weight: 400;
+       
+        font-variant-ligatures: common-ligatures;
+        text-rendering: optimizeLegibility;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        line-height: 20px;
+        letter-spacing: -0.015em;
+        color: #000000;
+    }
+    p{
+        font-family: var(--font-1);
+     
+    }
+}
 :root {
     /* color-1(#EA9010)
      * color-2(#343D35)
