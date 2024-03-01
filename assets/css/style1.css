@@ -718,7 +718,7 @@ body {
 
 .s-intro__content-text {
     z-index: 2;
-    grid-column: 1/span 11;
+    grid-column: 1/span 10;
     margin-top: 10px;
 }
 
@@ -764,7 +764,7 @@ body {
 
 .s-intro__content-media img {
     z-index: 2;
-    width: max(350px, 10vw);
+    width: max(300px, 10vw);
     margin: 0;
     -o-object-fit: cover;
     object-fit: cover;
@@ -953,7 +953,7 @@ body {
     }
 
     .s-intro__content-title {
-        font-size: 34px;
+        font-size: 30px;
         line-height: 40px;
     }
 
