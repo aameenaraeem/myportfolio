@@ -90,7 +90,7 @@ function typeOutText(words, id, speed) {
 }
 
 // Call the function with your words, target id, and speed (in milliseconds)
-typeOutText(["UI/UX Designer", "Wordpress developer", "Frontend - Developer"], "typed-text", 100);
+typeOutText(["UI/UX Designer", "Wordpress Developer", "Frontend - Developer"], "typed-text", 100);
 
 (function() {
 	'use strict';
