@@ -572,30 +572,33 @@
   
     <!-- contact section -->
 	<section id="contact" class="contact-info-area" data-background="assets/images/portfolio/img_v_2.jpg">
-		<div class="container">
-			<div class="row justify-content-between">
-				<div class="col-xl-5 col-lg-7">
-				  <div class="contact-caption mb-50">
-						<h1>Ready to Collaborate? Let's Make It Happen!</h1>
-						<p>Seize the Moment! Let's Join Forces and Achieve Success Together. Reach out and let's start building something amazing!</p>
-						
-				  </div>
-				</div>
-				<div class="col-xl-5 col-lg-5">
-					<form class="contact-wrapper">
-						<input type="text" name="name" placeholder="Full Name">
-						<input type="email" name="email" placeholder="Email Address">
-						<textarea name="message" id="message" placeholder="Your Message"></textarea>
-						<button class="submit-btn2" type="submit">Send Message</button>
-					</form>
-				</div>
-			</div>
-		</div>
-	</section>
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-xl-5 col-lg-7">
+                    <div class="contact-caption mb-50">
+                        <h1>Ready to Collaborate? Let's Make It Happen!</h1>
+                        <p>Seize the Moment! Let's Join Forces and Achieve Success Together. Reach out and let's start building something amazing!</p>
+                    </div>
+                </div>
+                <div class="col-xl-5 col-lg-5">
+                    <form class="contact-wrapper" id="contactForm" action="send_email.php" method="post">
+                        <input type="text" name="name" id="name" placeholder="Full Name" required>
+                        <input type="email" name="email" id="email" placeholder="Email Address" required>
+                        <textarea name="message" id="message" placeholder="Your Message" required></textarea>
+                        <button class="submit-btn2" type="submit" id="submitButton">Send Message</button>
+                    </form>
+                    <div class="hidden" id="successMessage">
+                        <p>Message sent successfully!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+	
 	<section id="footer">
         <div class="container">
             <h1>Let's work together.</h1>
-            <small>Design Portfolio 2024 © • Created by <a href="#">Ibrahim</a></small>
+            <small>My Portfolio 2024 © • Created by <a href="#">Ibrahim</a></small>
 					<ul class="list-inline">
 						<li class="list-inline-item"><a href="https://www.facebook.com/ibrahim.niyas.3781" target="_blank"><i class="icon ion-logo-facebook"></i></a></li>
 						<li class="list-inline-item"><a href="https://dribbble.com/amennarahim" target="_blank"><i class="icon ion-logo-dribbble"></i></a></li>
@@ -614,5 +617,24 @@
   
   <script src="assets/js/scripts-dist.js"></script>
   <script src="assets/js/main.js"></script>
+   <script>
+        document.getElementById("contactForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent default form submission
+            
+            // Check if all fields are filled
+            var name = document.getElementById("name").value;
+            var email = document.getElementById("email").value;
+            var message = document.getElementById("message").value;
+            
+            if (name && email && message) {
+                // Hide form
+                document.getElementById("contactForm").style.display = "none";
+                // Display success message
+                document.getElementById("successMessage").style.display = "block";
+            } else {
+                alert("Please fill in all fields.");
+            }
+        });
+    </script>
 </body>
 </html>
