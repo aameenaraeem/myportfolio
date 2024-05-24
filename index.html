@@ -677,24 +677,28 @@
 	<script src="assets/js/scripts-dist.js"></script>
 	<script src="assets/js/main.js"></script>
 	<script>
-        document.getElementById("contactForm").addEventListener("submit", function(event) {
-            event.preventDefault(); // Prevent default form submission
-            
-            // Check if all fields are filled
-            var name = document.getElementById("name").value;
-            var email = document.getElementById("email").value;
-            var message = document.getElementById("message").value;
-            
-            if (name && email && message) {
-                // Hide form
-                document.getElementById("contactForm").style.display = "none";
-                // Display success message
-                document.getElementById("successMessage").style.display = "block";
-            } else {
-                alert("Please fill in all fields.");
-            }
-        });
-    </script>
+		document.getElementById("contactForm").addEventListener("submit", function(event) {
+			event.preventDefault(); // Prevent default form submission
+			
+			// Check if all fields are filled
+			var name = document.getElementById("name").value;
+			var email = document.getElementById("email").value;
+			var message = document.getElementById("message").value;
+			
+			if (name && email && message) {
+				// Add class to hide form with animation
+				document.getElementById("contactForm").classList.add("hide-form");
+				
+				// Add class to show success message with animation after form is hidden
+				setTimeout(function() {
+					document.getElementById("successMessage").classList.add("show-success");
+					document.getElementById("successMessage").style.display = "block"; // Ensure it's displayed after animation
+				}, 1000); // Match the duration of the hide animation
+			} else {
+				alert("Please fill in all fields.");
+			}
+		});
+	</script>
 	<script>
 		document.getElementById('contactForm').addEventListener('submit', function (event) {
 			event.preventDefault();

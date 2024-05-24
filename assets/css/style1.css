@@ -1428,10 +1428,60 @@ Footer
 .list-inline-item {
     margin: 0 15px !important;
 }
+#contactContainer {
+    position: relative;
+}
 
 .hidden {
     display: none;
 }
-.hidden p{
+
+#successMessage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.hidden p {
     color: white;
+    background-color: green;
+    padding: 10px 10px;
+    border-radius: 7px;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+@keyframes hideForm {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0);
+    }
+}
+
+@keyframes showSuccess {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.hide-form {
+    animation: hideForm 1s forwards;
+}
+
+.show-success p {
+    animation: showSuccess 1s forwards;
+    opacity: 1;
 }
