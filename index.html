@@ -17,7 +17,7 @@
 
 	<!-- FontAwesome CSS -->
 	<link rel="stylesheet" href="assets/css/font-awesome.min.css">
-
+    <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
 </head>
 
 <body>
@@ -83,7 +83,7 @@
 
 </section>  -->
 
-
+<div class="cont">
 	<!-- <div class="outer-container"> -->
 	<header class="site-header">
 		<div class="top-header-bar">
@@ -103,6 +103,7 @@
 							<a href="tel:8610625590" class="icon-text"><i class="fa fa-phone fa-lg"></i>
 								<span>8610625590</span></a>
 						</div>
+						
 
 					</div>
 
@@ -145,7 +146,11 @@
 						</div>
 					</div>
 					<div class="site-branding flex flex-column align-items-center">
-						<h1 class="site-title"><a href="index.html" rel="home">Ibrahim</a></h1>
+						<div class="d-flex">
+							<h1 class="site-title"><a href="index.html" rel="home">Ibrahim</a></h1>
+							<ion-icon id="icon" class="moon" name="moon"></ion-icon>
+						</div>
+						
 						<p class="site-description">UI/UX Designer</p>
 					</div><!-- .site-branding -->
 
@@ -163,6 +168,7 @@
 							<li><a class="smoothscroll" href="#port">Portfolio</a></li>
 
 							<li><a class="smoothscroll" href="#contact">Contact</a></li>
+						
 						</ul>
 
 						<div class="header-bar-social d-md-none">
@@ -667,7 +673,7 @@
 			</ul>
 		</div>
 	</section>
-	</div>
+</div>
 	<!-- </div> -->
 	<!-- Include jQuery -->
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -676,6 +682,7 @@
 
 	<script src="assets/js/scripts-dist.js"></script>
 	<script src="assets/js/main.js"></script>
+	<script src="assets/js/script.js"></script>
 	<script>
 		document.getElementById("contactForm").addEventListener("submit", function(event) {
 			event.preventDefault(); // Prevent default form submission
