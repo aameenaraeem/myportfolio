@@ -34,11 +34,20 @@ $('.close').click(function() {
 
 
 document.addEventListener("DOMContentLoaded", function() {
-    // Add active class to elements to trigger transition
-    document.querySelector('.s-intro__content-text').classList.add('active');
-    document.querySelector('.s-intro__scroll-down').classList.add('active');
-    document.querySelector('.s-intro__content-media .lines').classList.add('active');
-    document.querySelector('.s-intro__content-media img').classList.add('active');
+    document.querySelector('.hero-banner')?.classList.add('active');
+
+    var header = document.querySelector('.site-header');
+    if (header) {
+        var onScroll = function() {
+            if (window.scrollY > 12) {
+                header.classList.add('is-sticky');
+            } else {
+                header.classList.remove('is-sticky');
+            }
+        };
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+    }
 });
 
 
@@ -90,7 +99,9 @@ function typeOutText(words, id, speed) {
 }
 
 // Call the function with your words, target id, and speed (in milliseconds)
-typeOutText(["UI/UX Designer", "Wordpress Developer", "Frontend - Developer"], "typed-text", 100);
+if (document.getElementById("typed-text")) {
+    typeOutText(["UI/UX Designer", "Wordpress Developer", "Frontend - Developer"], "typed-text", 100);
+}
 
 (function() {
 	'use strict';
