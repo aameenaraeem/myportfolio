@@ -90,7 +90,7 @@
 	<header class="site-header">
 		<div class="site-header-inner">
 			<a href="index.html" class="site-logo" rel="home">
-				<img src="" alt="Logo">
+				<img src="assets/images/portfolio/Asset%203.svg" alt="Logo">
 			</a>
 
 			<nav class="site-navigation">
@@ -112,7 +112,16 @@
 
 			<div class="header-actions">
 				<ion-icon id="icon" class="moon" name="moon"></ion-icon>
-				<a class="cta-btn smoothscroll" href="#contact">Let's Work Together</a>
+				<a class="cta-btn smoothscroll" href="#contact">
+					INQUIRE
+					<span class="cta-arrow" aria-hidden="true">→</span>
+				</a>
+				<button type="button" class="scroll-menu-btn" id="scrollMenuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="scrollMenu">
+					<span class="scroll-menu-lines" aria-hidden="true">
+						<span></span>
+						<span></span>
+					</span>
+				</button>
 				<div class="hamburger-menu d-lg-none">
 					<span></span>
 					<span></span>
@@ -122,6 +131,58 @@
 			</div>
 		</div>
 	</header>
+
+	<nav class="scroll-menu" id="scrollMenu" aria-hidden="true">
+		<div class="scroll-menu-panel">
+			<div class="scroll-menu-bar">
+				<a href="index.html" class="scroll-menu-brand" rel="home">
+					<img src="assets/images/portfolio/Asset%203.svg" alt="Logo">
+				</a>
+				<button type="button" class="scroll-menu-close" id="scrollMenuClose" aria-label="Close menu">
+					<span aria-hidden="true"></span>
+					<span aria-hidden="true"></span>
+				</button>
+			</div>
+
+			<ul class="scroll-menu-nav">
+				<li>
+					<a class="smoothscroll" href="#curated">
+						<span class="scroll-menu-num">01</span>
+						<span class="scroll-menu-label" data-label="Work"></span>
+					</a>
+				</li>
+				<li>
+					<a class="smoothscroll" href="#pricing">
+						<span class="scroll-menu-num">02</span>
+						<span class="scroll-menu-label" data-label="Pricing"></span>
+					</a>
+				</li>
+				<li>
+					<a class="smoothscroll" href="#about">
+						<span class="scroll-menu-num">03</span>
+						<span class="scroll-menu-label" data-label="About Me"></span>
+					</a>
+				</li>
+				<li>
+					<a class="smoothscroll" href="#faq">
+						<span class="scroll-menu-num">04</span>
+						<span class="scroll-menu-label" data-label="F.A.Q."></span>
+					</a>
+				</li>
+			</ul>
+
+			<div class="scroll-menu-footer">
+				<a class="scroll-menu-footer-email" href="mailto:amennaibrahim@gmail.com">amennaibrahim@gmail.com</a>
+				<ul class="scroll-menu-footer-socials">
+					<li><a href="https://www.instagram.com/uiux_raeem" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+					<li><a href="https://dribbble.com/amennarahim" target="_blank" rel="noopener noreferrer">Dribbble</a></li>
+					<li><a href="https://www.linkedin.com/in/ibrahim-bathusa-573062217" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+					<li><a href="https://www.facebook.com/ibrahim.niyas.3781" target="_blank" rel="noopener noreferrer">Facebook</a></li>
+				</ul>
+				<a class="scroll-menu-footer-contact smoothscroll" href="#contact">Get in touch</a>
+			</div>
+		</div>
+	</nav>
 
 	<section id="intro" class="s-intro">
 		<div class="hero-banner">
@@ -293,6 +354,59 @@
 </section> -->
 
 
+	<!-- <section id="curated" class="curated-section">
+		<div class="curated-header">
+			<h2 class="curated-title">Curated Projects</h2>
+			<p class="curated-subtitle">Selection of projects across branding, product design, and visual systems – each one built with intention.</p>
+		</div>
+
+		<div class="curated-grid">
+			<a href="assets/images/portfolio/E-commerce_home.jpg" class="curated-card" data-fancybox="curated" data-caption="E-commerce Website">
+				<span class="curated-card-media" style="background-image: url('assets/images/portfolio/E-commerce_home.jpg');"></span>
+				<span class="curated-card-shade"></span>
+				<span class="curated-year">2024</span>
+				<span class="curated-brand">
+					<span class="curated-brand-name">E-commerce</span>
+				</span>
+				<span class="curated-view">View project <span aria-hidden="true">›</span></span>
+				<span class="curated-cat">UI / UX Design</span>
+			</a>
+
+			<a href="assets/images/portfolio/PAYPAL MOCKUP.jpg" class="curated-card" data-fancybox="curated" data-caption="Paypal Concept">
+				<span class="curated-card-media" style="background-image: url('assets/images/portfolio/PAYPAL%20MOCKUP.jpg');"></span>
+				<span class="curated-card-shade"></span>
+				<span class="curated-year">2024</span>
+				<span class="curated-brand">
+					<span class="curated-brand-name">Paypal</span>
+				</span>
+				<span class="curated-view">View project <span aria-hidden="true">›</span></span>
+				<span class="curated-cat">Mobile App Design</span>
+			</a>
+
+			<a href="assets/images/portfolio/u chat 2.jpg" class="curated-card" data-fancybox="curated" data-caption="Chat Theme">
+				<span class="curated-card-media" style="background-image: url('assets/images/portfolio/u%20chat%202.jpg');"></span>
+				<span class="curated-card-shade"></span>
+				<span class="curated-year">2023</span>
+				<span class="curated-brand">
+					<span class="curated-brand-name">Chat Theme</span>
+				</span>
+				<span class="curated-view">View project <span aria-hidden="true">›</span></span>
+				<span class="curated-cat">Mobile UI Design</span>
+			</a>
+
+			<a href="assets/images/portfolio/stores.jpg" class="curated-card" data-fancybox="curated" data-caption="Gaming Website">
+				<span class="curated-card-media" style="background-image: url('assets/images/portfolio/stores.jpg');"></span>
+				<span class="curated-card-shade"></span>
+				<span class="curated-year">2023</span>
+				<span class="curated-brand">
+					<span class="curated-brand-name">Game Store</span>
+				</span>
+				<span class="curated-view">View project <span aria-hidden="true">›</span></span>
+				<span class="curated-cat">Web Design</span>
+			</a>
+		</div>
+	</section> -->
+
 	<section id="port" class="port-section">
 		<div class="port-grid">
 			<article class="port-card">
@@ -373,46 +487,57 @@
 	</section>
 
 <!-- contact section -->
-	<section id="contact" class="contact-info-area" data-background="assets/images/portfolio/img_v_2.jpg">
-		<div class="container">
-			<div class="row justify-content-between">
-				<div class="col-xl-5 col-lg-7">
-					<div class="contact-caption mb-50">
-						<h1>Ready to Collaborate? Let's Make It Happen!</h1>
-						<p>Seize the Moment! Let's Join Forces and Achieve Success Together. Reach out and let's start
-							building something amazing!</p>
-					</div>
+	<section id="contact" class="contact-section">
+		<div class="contact-layout">
+			<div class="contact-intro">
+				<div class="contact-intro-top">
+					<h2 class="contact-heading">Let's talk.</h2>
+					<p class="contact-copy">Have a project or need help? Fill out the form, and we'll get back to you soon.</p>
 				</div>
-				<div class="col-xl-5 col-lg-5">
-					<form class="contact-wrapper" id="contactForm" action="send_email.php" method="post">
-						<input type="text" name="name" id="name" placeholder="Full Name" required>
-						<input type="email" name="email" id="email" placeholder="Email Address" required>
-						<textarea name="message" id="message" placeholder="Your Message" required></textarea>
-						<button class="submit-btn2" type="submit" id="submitButton">Send Message</button>
-					</form>
-					<div class="hidden" id="successMessage">
-						<p>Your message has been received and will reach Ibrahim's inbox shortly. He will get back to you soon.!</p>
-					</div>
+				<ul class="contact-socials">
+					<li>
+						<a href="https://www.facebook.com/ibrahim.niyas.3781" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+							<i class="icon ion-logo-facebook"></i>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.instagram.com/uiux_raeem" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+							<i class="icon ion-logo-instagram"></i>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.linkedin.com/in/ibrahim-bathusa-573062217" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+							<i class="icon ion-logo-linkedin"></i>
+						</a>
+					</li>
+					<li>
+						<a href="https://dribbble.com/amennarahim" target="_blank" rel="noopener noreferrer" aria-label="Dribbble">
+							<i class="icon ion-logo-dribbble"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+
+			<div class="contact-panel" id="contactContainer">
+				<form class="contact-form contact-wrapper" id="contactForm" action="send_email.php" method="post">
+					<label class="contact-field" for="name">
+						<span>Name</span>
+						<input type="text" name="name" id="name" placeholder="Enter your name" required>
+					</label>
+					<label class="contact-field" for="email">
+						<span>Email</span>
+						<input type="email" name="email" id="email" placeholder="Enter your email" required>
+					</label>
+					<label class="contact-field" for="message">
+						<span>Your Project</span>
+						<textarea name="message" id="message" placeholder="Tell us about your project" required></textarea>
+					</label>
+					<button class="contact-submit submit-btn2" type="submit" id="submitButton">Submit</button>
+				</form>
+				<div class="hidden" id="successMessage">
+					<p>Your message has been received and will reach Ibrahim's inbox shortly. He will get back to you soon.!</p>
 				</div>
 			</div>
-		</div>
-	</section>
-
-	<section id="footer">
-		<div class="container">
-			<h1>Let's work together.</h1>
-			<small>My Portfolio 2024 © • Created by <a href="#">Ibrahim</a></small>
-			<ul class="list-inline">
-				<li class="list-inline-item"><a href="https://www.facebook.com/ibrahim.niyas.3781" target="_blank"><i
-							class="icon ion-logo-facebook"></i></a></li>
-				<li class="list-inline-item"><a href="https://dribbble.com/amennarahim" target="_blank"><i
-							class="icon ion-logo-dribbble"></i></a></li>
-				<li class="list-inline-item"><a href="https://www.linkedin.com/in/ibrahim-bathusa-573062217"
-						target="_blank"><i class="icon ion-logo-linkedin"></i></a></li>
-				<li class="list-inline-item"><a href="https://www.instagram.com/uiux_raeem" target="_blank"><i
-							class="icon ion-logo-instagram"></i></a></li>
-
-			</ul>
 		</div>
 	</section>
 </div>
