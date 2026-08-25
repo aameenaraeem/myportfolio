@@ -4,8 +4,24 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Ibrahim</title>
-	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Lato:300" rel="stylesheet" type="text/css">
+	<style>
+		body.is-preloading { overflow: hidden; }
+		.intro-preloader {
+			position: fixed;
+			inset: 0;
+			z-index: 10000;
+			background: #000;
+		}
+	</style>
+	<script>
+		// Always start at top after refresh (don't restore mid-page scroll)
+		if ('scrollRestoration' in history) {
+			history.scrollRestoration = 'manual';
+		}
+		window.scrollTo(0, 0);
+	</script>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<!-- <link rel="stylesheet" href="css/style.css"> -->
 	<link rel="stylesheet" href="assets/css/style1.css">
@@ -20,7 +36,13 @@
     <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
 </head>
 
-<body>
+<body class="is-preloading">
+
+	<div class="intro-preloader" id="introPreloader" aria-hidden="false" role="status" aria-label="Loading">
+		<div class="intro-preloader-panel intro-preloader-left"></div>
+		<div class="intro-preloader-panel intro-preloader-right"></div>
+		<p class="intro-preloader-text">Making ideas feel inevitable.</p>
+	</div>
 
 	<!-- <section class="gallery">
 	<div class="row">
@@ -186,12 +208,13 @@
 
 	<section id="intro" class="s-intro">
 		<div class="hero-banner">
-			<span class="hero-badge">Available for new projects</span>
 			<h1 class="hero-title">
-				Big ideas<br>
-				deserve great<br>
-				design
+				Making ideas<br>
+				feel inevitable
 			</h1>
+			<p class="hero-desc">
+				I design and build digital experiences that feel clear, considered, and ready for real people.
+			</p>
 		</div>
 	</section>
 

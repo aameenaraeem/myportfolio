@@ -581,10 +581,11 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    align-self: stretch;
-    width: 72px;
-    height: 104px;
-    background: #ffffff;
+    align-self: center;
+    width: 56px;
+    height: 56px;
+    background: #111111;
+    border-radius: 50%;
     flex-shrink: 0;
     position: relative;
     z-index: 2;
@@ -594,22 +595,23 @@ body {
 }
 
 .site-header.is-compact .site-logo {
-    height: 80px;
-    width: 56px;
-    background: transparent;
+    width: 44px;
+    height: 44px;
+    background: #111111;
 }
 
 .site-logo img {
-    width: 42px;
-    height: 42px;
+    width: 28px;
+    height: 28px;
     object-fit: contain;
     display: block;
+    filter: brightness(0) invert(1);
     transition: width 0.55s ease, height 0.55s ease;
 }
 
 .site-header.is-compact .site-logo img {
-    width: 36px;
-    height: 36px;
+    width: 22px;
+    height: 22px;
 }
 
 .site-logo img[src=""] {
@@ -617,11 +619,11 @@ body {
 }
 
 .dark-theme .site-logo {
-    background: var(--page-bg);
+    background: #111111;
 }
 
 .dark-theme .site-header.is-compact .site-logo {
-    background: transparent;
+    background: #111111;
 }
 
 .dark-theme .site-logo img {
@@ -736,9 +738,11 @@ body {
     pointer-events: none;
 }
 
-/* compact menu circle (morph target) */
+/* compact menu circle (morph target) — absolute so it doesn't reserve space when hidden */
 .scroll-menu-btn {
-    position: relative;
+    position: absolute;
+    right: 0;
+    top: 50%;
     width: 56px;
     height: 56px;
     border: 0;
@@ -749,7 +753,7 @@ body {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transform: scale(0);
+    transform: translateY(-50%) scale(0);
     transform-origin: center center;
     opacity: 0;
     pointer-events: none;
@@ -762,7 +766,7 @@ body {
 
 .site-header.is-compact .scroll-menu-btn {
     opacity: 1;
-    transform: scale(0.5);
+    transform: translateY(-50%) scale(0.5);
     pointer-events: auto;
     transition-delay: 0.12s;
 }
@@ -792,7 +796,7 @@ body {
 .site-header.is-compact .scroll-menu-btn:hover,
 .site-header.is-compact .scroll-menu-btn:focus-visible,
 .site-header.is-compact .scroll-menu-btn.is-open {
-    transform: scale(1);
+    transform: translateY(-50%) scale(1);
 }
 
 .site-header.is-compact .scroll-menu-btn:hover .scroll-menu-lines,
@@ -1412,7 +1416,8 @@ body.menu-open {
     }
 
     .site-logo {
-        height: 96px;
+        width: 52px;
+        height: 52px;
     }
 }
 
@@ -1423,8 +1428,8 @@ body.menu-open {
     }
 
     .site-logo {
-        width: 64px;
-        height: 80px;
+        width: 48px;
+        height: 48px;
     }
 
     .site-navigation {
@@ -1483,25 +1488,39 @@ body.menu-open {
 
 /* ===================================================================
  * # INTRO
- *
+ * First viewport below header = banner only (any device)
  *
  * ------------------------------------------------------------------- */
 .s-intro {
-    padding: 0;
-    min-height: auto;
-    z-index: 2;
-    background: #ffffff;
-    width: 100%;
-    overflow: hidden;
+    --hero-header-offset: 104px;
     position: relative;
+    z-index: 2;
+    width: calc(100% + (var(--page-gutter) * 2));
+    margin-left: calc(var(--page-gutter) * -1);
+    margin-right: calc(var(--page-gutter) * -1);
+    padding: 0;
+    min-height: calc(100vh - var(--hero-header-offset));
+    min-height: calc(100svh - var(--hero-header-offset));
+    min-height: calc(100dvh - var(--hero-header-offset));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #ffffff;
+    box-sizing: border-box;
 }
 
 .hero-banner {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     text-align: center;
-    padding: 88px 0 96px;
+    width: 100%;
+    flex: 1 1 auto;
+    min-height: 100%;
+    padding: 40px var(--page-gutter);
+    box-sizing: border-box;
     opacity: 0;
     transform: translateY(48px);
     transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1),
@@ -1513,37 +1532,12 @@ body.menu-open {
     transform: translateY(0);
 }
 
-.hero-badge {
-    display: inline-flex;
-    align-items: center;
-    background: #5ad4dc;
-    color: #111111;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 10px 18px;
-    border-radius: 50px;
-    margin-bottom: 36px;
-    opacity: 0;
-    transform: translateY(28px);
-    transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
-                transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.hero-banner.active .hero-badge {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.05s;
-}
-
 h1.hero-title {
     margin: 0;
     color: #111111;
     font-family: 'Montserrat', sans-serif;
     font-weight: 800;
-    font-size: clamp(48px, 8vw, 112px);
+    font-size: clamp(56px, 10.5vw, 148px);
     line-height: 0.95;
     letter-spacing: -0.03em;
     text-transform: uppercase;
@@ -1557,13 +1551,35 @@ h1.hero-title {
 .hero-banner.active .hero-title {
     opacity: 1;
     transform: translateY(0);
-    transition-delay: 0.18s;
+    transition-delay: 0.12s;
+}
+
+.hero-desc {
+    margin: 28px 0 0;
+    max-width: 52ch;
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(20px, 2.4vw, 28px);
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: 0.01em;
+    color: #6b6b6b;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.95s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.95s cubic-bezier(0.22, 1, 0.36, 1),
+                color 0.35s ease;
+}
+
+.hero-banner.active .hero-desc {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.28s;
 }
 
 @media (prefers-reduced-motion: reduce) {
     .hero-banner,
-    .hero-badge,
-    h1.hero-title {
+    h1.hero-title,
+    .hero-desc {
         opacity: 1;
         transform: none;
         transition: none;
@@ -1578,13 +1594,34 @@ h1.hero-title {
     color: var(--primary-color);
 }
 
+.dark-theme .hero-desc {
+    color: rgba(237, 242, 252, 0.7);
+}
+
+@media screen and (max-width: 1199px) {
+    .s-intro {
+        --hero-header-offset: 96px;
+    }
+}
+
+@media screen and (max-width: 991px) {
+    .s-intro {
+        --hero-header-offset: 80px;
+    }
+}
+
 @media screen and (max-width: 768px) {
     .hero-banner {
-        padding: 56px 0 72px;
+        padding: 32px var(--page-gutter);
     }
 
     .hero-title {
-        font-size: clamp(36px, 12vw, 64px);
+        font-size: clamp(44px, 14vw, 80px);
+    }
+
+    .hero-desc {
+        margin-top: 22px;
+        max-width: 42ch;
     }
 }
 
@@ -2609,4 +2646,155 @@ Footer
 .show-success p {
     animation: showSuccess 1s forwards;
     opacity: 1;
+}
+
+/* intro preloader: shimmer text, then center split */
+.intro-preloader {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    pointer-events: auto;
+    background: transparent;
+    isolation: isolate;
+}
+
+.intro-preloader.is-open {
+    pointer-events: none;
+}
+
+.intro-preloader-panel {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    z-index: 1;
+    background: #000000;
+    will-change: transform;
+    transition: transform 1.05s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.intro-preloader-left {
+    left: 0;
+}
+
+.intro-preloader-right {
+    right: 0;
+}
+
+/* single lean center seam — behind text so letters stay whole */
+.intro-preloader::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1px;
+    height: 0;
+    background: rgba(232, 228, 236, 0.4);
+    transform: translate(-50%, -50%) scaleX(0.5);
+    z-index: 2;
+    pointer-events: none;
+    transition: height 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+                opacity 0.35s ease;
+}
+
+.intro-preloader.is-splitting::after {
+    height: 100%;
+}
+
+.intro-preloader.is-open::after {
+    opacity: 0;
+}
+
+.intro-preloader.is-open .intro-preloader-left {
+    transform: translateX(-100%);
+}
+
+.intro-preloader.is-open .intro-preloader-right {
+    transform: translateX(100%);
+}
+
+.intro-preloader-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 5;
+    margin: 0;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    font-family: "Playfair Display", "Times New Roman", serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(18px, 3.4vw, 36px);
+    letter-spacing: 0.01em;
+    line-height: 1.2;
+    color: #b0acb4;
+    -webkit-text-fill-color: #b0acb4;
+    background-image: linear-gradient(
+        105deg,
+        #b0acb4 0%,
+        #b0acb4 40%,
+        #f7f4fb 50%,
+        #b0acb4 60%,
+        #b0acb4 100%
+    );
+    background-size: 250% 100%;
+    background-position: 100% 0;
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    transition: opacity 0.45s ease;
+    pointer-events: none;
+}
+
+.intro-preloader.is-shimmer .intro-preloader-text {
+    -webkit-text-fill-color: transparent;
+    animation: intro-shimmer-sweep 1.7s ease-in-out forwards;
+}
+
+/* solid color again so nothing vanishes after shimmer */
+.intro-preloader.is-shimmer-done .intro-preloader-text {
+    animation: none;
+    background-image: none;
+    color: #b0acb4;
+    -webkit-text-fill-color: #b0acb4;
+}
+
+/* full line fades out before doors move — never cropped */
+.intro-preloader.is-text-out .intro-preloader-text {
+    opacity: 0;
+}
+
+@keyframes intro-shimmer-sweep {
+    0% {
+        background-position: 100% 0;
+    }
+    100% {
+        background-position: 0% 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .intro-preloader-text {
+        font-size: clamp(15px, 4.6vw, 22px);
+        letter-spacing: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .intro-preloader-text {
+        animation: none;
+        background: none;
+        color: #c8c4cc;
+        -webkit-text-fill-color: #c8c4cc;
+    }
+
+    .intro-preloader-panel {
+        transition: opacity 0.4s ease;
+    }
+
+    .intro-preloader.is-open .intro-preloader-left,
+    .intro-preloader.is-open .intro-preloader-right {
+        transform: none;
+        opacity: 0;
+    }
 }
