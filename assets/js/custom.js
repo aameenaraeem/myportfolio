@@ -43,13 +43,25 @@ document.addEventListener("DOMContentLoaded", function() {
         history.scrollRestoration = 'manual';
     }
 
+    var skipIntro = document.documentElement.classList.contains('skip-intro');
+
     var forceScrollTop = function() {
         window.scrollTo(0, 0);
         document.documentElement.scrollTop = 0;
         document.body.scrollTop = 0;
     };
 
-    forceScrollTop();
+    var scrollToHash = function() {
+        if (!location.hash) return false;
+        var target = document.querySelector(location.hash);
+        if (!target) return false;
+        target.scrollIntoView();
+        return true;
+    };
+
+    if (!skipIntro) {
+        forceScrollTop();
+    }
 
     var revealSite = function() {
         if (siteHeader) {
@@ -95,7 +107,25 @@ document.addEventListener("DOMContentLoaded", function() {
         }, prefersReducedMotion ? 450 : 1100);
     };
 
-    if (introPreloader) {
+    if (skipIntro) {
+        document.body.classList.remove('is-preloading');
+        if (introPreloader && introPreloader.parentNode) {
+            introPreloader.parentNode.removeChild(introPreloader);
+        }
+        revealSite();
+        if (!scrollToHash()) {
+            forceScrollTop();
+        }
+        window.addEventListener('load', function() {
+            if (!scrollToHash()) {
+                forceScrollTop();
+            }
+        });
+    } else if (introPreloader) {
+        try {
+            sessionStorage.setItem('introPlayed', '1');
+        } catch (e) {}
+
         // Keep page pinned to top while browser tries to restore scroll
         var pinTop = setInterval(forceScrollTop, 50);
 
@@ -124,12 +154,144 @@ document.addEventListener("DOMContentLoaded", function() {
                 finishPreloader();
             }, 2700);
         }
+
+        window.addEventListener('load', forceScrollTop);
     } else {
         forceScrollTop();
         revealSite();
+        window.addEventListener('load', forceScrollTop);
     }
 
-    window.addEventListener('load', forceScrollTop);
+    var portSection = document.getElementById('port');
+    if (portSection) {
+        if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+            portSection.classList.add('is-in');
+        } else {
+            var portObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (!entry.isIntersecting) return;
+                    portSection.classList.add('is-in');
+                    portObserver.disconnect();
+                });
+            }, { threshold: 0.16, rootMargin: '0px 0px -10% 0px' });
+            portObserver.observe(portSection);
+        }
+    }
+
+    var expSection = document.getElementById('experience');
+    if (expSection) {
+        if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+            expSection.classList.add('is-in');
+        } else {
+            var expObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (!entry.isIntersecting) return;
+                    expSection.classList.add('is-in');
+                    expObserver.disconnect();
+                });
+            }, { threshold: 0.12, rootMargin: '0px 0px -10% 0px' });
+            expObserver.observe(expSection);
+        }
+    }
+
+    var pageWipe = document.getElementById('pageWipe');
+    var shouldRevealWipe = pageWipe && (
+        pageWipe.classList.contains('is-holding') ||
+        document.documentElement.classList.contains('page-enter')
+    );
+
+    if (shouldRevealWipe && !prefersReducedMotion) {
+        requestAnimationFrame(function() {
+            requestAnimationFrame(function() {
+                pageWipe.classList.add('is-reveal');
+            });
+        });
+        var clearWipe = function() {
+            document.documentElement.classList.remove('page-enter');
+            if (pageWipe.parentNode) {
+                pageWipe.parentNode.removeChild(pageWipe);
+            }
+        };
+        pageWipe.addEventListener('transitionend', function(evt) {
+            if (evt.propertyName !== 'transform') return;
+            clearWipe();
+        });
+        setTimeout(clearWipe, 800);
+    } else if (pageWipe && pageWipe.parentNode) {
+        document.documentElement.classList.remove('page-enter');
+        pageWipe.parentNode.removeChild(pageWipe);
+    }
+
+    function isPageChange(link) {
+        if (!link || link.target === '_blank' || link.hasAttribute('download')) return false;
+        var raw = link.getAttribute('href') || '';
+        if (!raw || raw.charAt(0) === '#' || raw.indexOf('mailto:') === 0 || raw.indexOf('tel:') === 0 || raw.indexOf('javascript:') === 0) return false;
+        var next;
+        try {
+            next = new URL(link.href, window.location.href);
+        } catch (e) {
+            return false;
+        }
+        if (next.origin !== window.location.origin) return false;
+        return next.pathname !== window.location.pathname;
+    }
+
+    document.addEventListener('click', function(event) {
+        if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        if (event.button !== 0) return;
+
+        var link = event.target.closest('a[href]');
+        if (!isPageChange(link)) return;
+        if (prefersReducedMotion) return;
+
+        event.preventDefault();
+        event.stopImmediatePropagation();
+
+        var wipe = document.querySelector('.page-wipe');
+        if (!wipe) {
+            wipe = document.createElement('div');
+            wipe.className = 'page-wipe';
+            wipe.id = 'pageWipe';
+            document.body.appendChild(wipe);
+        }
+
+        wipe.getBoundingClientRect();
+        wipe.classList.add('is-cover');
+
+        var go = function() {
+            try {
+                sessionStorage.setItem('pageEnter', '1');
+            } catch (e) {}
+            window.location.href = link.href;
+        };
+        var left = false;
+        wipe.addEventListener('transitionend', function(evt) {
+            if (evt.propertyName !== 'transform' || left) return;
+            left = true;
+            go();
+        });
+        setTimeout(function() {
+            if (!left) {
+                left = true;
+                go();
+            }
+        }, 620);
+    }, true);
+
+    document.addEventListener('click', function(event) {
+        var link = event.target.closest('a[href^="#"]');
+        if (!link) return;
+        var hash = link.getAttribute('href');
+        if (!hash || hash === '#') return;
+        var target = document.querySelector(hash);
+        if (!target) return;
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        target.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
+        if (history.pushState) {
+            history.pushState(null, '', hash);
+        }
+    }, true);
 
     document.querySelectorAll('.scroll-menu-label[data-label]').forEach(function(label) {
         var text = label.getAttribute('data-label') || '';

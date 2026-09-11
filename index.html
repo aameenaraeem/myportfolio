@@ -8,19 +8,49 @@
 	<link href="https://fonts.googleapis.com/css?family=Lato:300" rel="stylesheet" type="text/css">
 	<style>
 		body.is-preloading { overflow: hidden; }
+		html.skip-intro body.is-preloading { overflow: auto; }
 		.intro-preloader {
 			position: fixed;
 			inset: 0;
 			z-index: 10000;
 			background: #000;
 		}
+		html.skip-intro .intro-preloader { display: none !important; }
+		html.page-enter .page-wipe {
+			transform: translateY(0);
+			pointer-events: auto;
+		}
+		html.page-enter .page-wipe.is-reveal {
+			transform: translateY(-101%);
+			pointer-events: none;
+		}
 	</style>
 	<script>
-		// Always start at top after refresh (don't restore mid-page scroll)
 		if ('scrollRestoration' in history) {
 			history.scrollRestoration = 'manual';
 		}
-		window.scrollTo(0, 0);
+
+		var skipIntro = false;
+		try {
+			var navEntry = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+			var isReload = navEntry && navEntry.type === 'reload';
+			var introPlayed = sessionStorage.getItem('introPlayed') === '1';
+			// Play on first open and on refresh. Skip menu clicks that load this page again.
+			skipIntro = introPlayed && !isReload;
+		} catch (e) {}
+
+		var arriving = false;
+		try {
+			arriving = sessionStorage.getItem('pageEnter') === '1';
+			if (arriving) sessionStorage.removeItem('pageEnter');
+		} catch (e) {}
+
+		if (skipIntro) {
+			document.documentElement.classList.add('skip-intro');
+			if (arriving) document.documentElement.classList.add('page-enter');
+		} else if (!location.hash) {
+			window.scrollTo(0, 0);
+		}
 	</script>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<!-- <link rel="stylesheet" href="css/style.css"> -->
@@ -37,6 +67,8 @@
 </head>
 
 <body class="is-preloading">
+
+	<div class="page-wipe" id="pageWipe" aria-hidden="true"></div>
 
 	<div class="intro-preloader" id="introPreloader" aria-hidden="false" role="status" aria-label="Loading">
 		<div class="intro-preloader-panel intro-preloader-left"></div>
@@ -121,13 +153,10 @@
 						<a class="smoothscroll" href="#port"><span class="nav-num">01</span> Work</a>
 					</li>
 					<li>
-						<a class="smoothscroll" href="#pricing"><span class="nav-num">02</span> Pricing</a>
+						<a class="smoothscroll" href="#about"><span class="nav-num">02</span> About Me</a>
 					</li>
 					<li>
-						<a class="smoothscroll" href="#about"><span class="nav-num">03</span> About Me</a>
-					</li>
-					<li>
-						<a class="smoothscroll" href="#faq"><span class="nav-num">04</span> F.A.Q.</a>
+						<a class="smoothscroll" href="#experience"><span class="nav-num">03</span> Experience</a>
 					</li>
 				</ul>
 			</nav>
@@ -174,21 +203,15 @@
 					</a>
 				</li>
 				<li>
-					<a class="smoothscroll" href="#pricing">
-						<span class="scroll-menu-num">02</span>
-						<span class="scroll-menu-label" data-label="Pricing"></span>
-					</a>
-				</li>
-				<li>
 					<a class="smoothscroll" href="#about">
-						<span class="scroll-menu-num">03</span>
+						<span class="scroll-menu-num">02</span>
 						<span class="scroll-menu-label" data-label="About Me"></span>
 					</a>
 				</li>
 				<li>
-					<a class="smoothscroll" href="#faq">
-						<span class="scroll-menu-num">04</span>
-						<span class="scroll-menu-label" data-label="F.A.Q."></span>
+					<a class="smoothscroll" href="#experience">
+						<span class="scroll-menu-num">03</span>
+						<span class="scroll-menu-label" data-label="Experience"></span>
 					</a>
 				</li>
 			</ul>
@@ -431,10 +454,13 @@
 	</section> -->
 
 	<section id="port" class="port-section">
+		<header class="port-header">
+			<h2 class="port-heading">Design work</h2>
+		</header>
 		<div class="port-grid">
 			<article class="port-card">
-				<a href="assets/images/portfolio/E-commerce_home.jpg" class="port-card-media" data-fancybox="work" data-caption="E-commerce Website">
-					<img src="assets/images/portfolio/E-commerce_home.jpg" alt="E-commerce Website">
+				<a href="mudfield.html" class="port-card-media">
+					<img src="assets/images/portfolio/mudfield_mock.png" alt="Mudfield organic store">
 					<span class="port-card-arrow" aria-hidden="true">
 						<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
 							<path d="M5 12h14"></path>
@@ -443,14 +469,14 @@
 					</span>
 				</a>
 				<div class="port-card-meta">
-					<h3 class="port-card-title">E-commerce Website </h3>
-					<p class="port-card-role">UI/UX Design</p>
+					<h3 class="port-card-title"><a href="mudfield.html">Mudfield</a></h3>
+					<p class="port-card-role">E-commerce Website</p>
 				</div>
 			</article>
 
 			<article class="port-card">
-				<a href="assets/images/portfolio/PAYPAL MOCKUP.jpg" class="port-card-media" data-fancybox="work" data-caption="Paypal Concept">
-					<img src="assets/images/portfolio/PAYPAL MOCKUP.jpg" alt="Paypal Concept">
+				<a href="toms-records.html" class="port-card-media">
+					<img src="assets/images/portfolio/toms_record.png" alt="Tom's Records and Hifi">
 					<span class="port-card-arrow" aria-hidden="true">
 						<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
 							<path d="M5 12h14"></path>
@@ -459,40 +485,40 @@
 					</span>
 				</a>
 				<div class="port-card-meta">
-					<h3 class="port-card-title">Paypal Concept </h3>
+					<h3 class="port-card-title"><a href="toms-records.html">Tom's Records</a></h3>
+					<p class="port-card-role">Music Store Website</p>
+				</div>
+			</article>
+
+			<article class="port-card">
+				<a href="namahaana.html" class="port-card-media">
+					<img src="assets/images/portfolio/matri.png" alt="Namahaana Matrimony app">
+					<span class="port-card-arrow" aria-hidden="true">
+						<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+							<path d="M5 12h14"></path>
+							<path d="M13 6l6 6-6 6"></path>
+						</svg>
+					</span>
+				</a>
+				<div class="port-card-meta">
+					<h3 class="port-card-title"><a href="namahaana.html">Namahaana</a></h3>
+					<p class="port-card-role">Matrimony App</p>
+				</div>
+			</article>
+
+			<article class="port-card">
+				<a href="salon-booking.html" class="port-card-media">
+					<img src="assets/images/portfolio/saloon_mockup.png" alt="Salon booking app">
+					<span class="port-card-arrow" aria-hidden="true">
+						<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+							<path d="M5 12h14"></path>
+							<path d="M13 6l6 6-6 6"></path>
+						</svg>
+					</span>
+				</a>
+				<div class="port-card-meta">
+					<h3 class="port-card-title"><a href="salon-booking.html">Salon Booking</a></h3>
 					<p class="port-card-role">Mobile App Design</p>
-				</div>
-			</article>
-
-			<article class="port-card">
-				<a href="assets/images/portfolio/u chat 2.jpg" class="port-card-media" data-fancybox="work" data-caption="Chat Theme">
-					<img src="assets/images/portfolio/u chat 2.jpg" alt="Chat Theme">
-					<span class="port-card-arrow" aria-hidden="true">
-						<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-							<path d="M5 12h14"></path>
-							<path d="M13 6l6 6-6 6"></path>
-						</svg>
-					</span>
-				</a>
-				<div class="port-card-meta">
-					<h3 class="port-card-title">Chat Theme</h3>
-					<p class="port-card-role">Mobile UI Design</p>
-				</div>
-			</article>
-
-			<article class="port-card">
-				<a href="assets/images/portfolio/stores.jpg" class="port-card-media" data-fancybox="work" data-caption="Gaming Website">
-					<img src="assets/images/portfolio/stores.jpg" alt="Gaming Website">
-					<span class="port-card-arrow" aria-hidden="true">
-						<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-							<path d="M5 12h14"></path>
-							<path d="M13 6l6 6-6 6"></path>
-						</svg>
-					</span>
-				</a>
-				<div class="port-card-meta">
-					<h3 class="port-card-title">Gaming Website</h3>
-					<p class="port-card-role">Web Design</p>
 				</div>
 			</article>
 		</div>
@@ -506,6 +532,89 @@
 			<p class="about-copy">
 				I’m a designer at heart, a developer by practice, and always curious to create what’s next.
 			</p>
+		</div>
+	</section>
+
+	<section id="experience" class="exp-section">
+		<header class="exp-header">
+			<div class="exp-header-top">
+				<h2 class="exp-heading">Experience</h2>
+				<p class="exp-period">
+					<span class="exp-period-dot" aria-hidden="true"></span>
+					August 2022 — Present
+				</p>
+			</div>
+			<p class="exp-lead">Four years in one company, across four roles. Each seat added a layer to how I build.</p>
+		</header>
+
+		<div class="exp-layout">
+			<aside class="exp-aside">
+				<div class="exp-stat">
+					<span class="exp-stat-num">04</span>
+					<span class="exp-stat-label">Years of<br>experience</span>
+				</div>
+				<p class="exp-aside-copy">
+					One place, four roles. I learned how sites are built, how people actually use them, and how to keep both intact in the final product.
+				</p>
+			</aside>
+
+			<ol class="exp-list">
+				<li class="exp-item">
+					<span class="exp-step" aria-hidden="true">01</span>
+					<div class="exp-body">
+						<h3 class="exp-role">WordPress Developer</h3>
+						<p class="exp-desc">Built and maintained client websites end to end — custom themes, page builds, and the steady fixes that keep a live site healthy.</p>
+						<ul class="exp-tags">
+							<li>WordPress</li>
+							<li>Theme customisation</li>
+							<li>Page builders</li>
+							<li>Site maintenance</li>
+						</ul>
+					</div>
+				</li>
+
+				<li class="exp-item">
+					<span class="exp-step" aria-hidden="true">02</span>
+					<div class="exp-body">
+						<h3 class="exp-role">UI/UX Designer</h3>
+						<p class="exp-desc">Moved upstream to shape products before they were built — user flows, wireframes, design systems, and prototypes a team could hand straight to development.</p>
+						<ul class="exp-tags">
+							<li>Figma</li>
+							<li>User flows</li>
+							<li>Design systems</li>
+							<li>Prototyping</li>
+						</ul>
+					</div>
+				</li>
+
+				<li class="exp-item">
+					<span class="exp-step" aria-hidden="true">03</span>
+					<div class="exp-body">
+						<h3 class="exp-role">UI Developer</h3>
+						<p class="exp-desc">Now I build what I design — component-driven, responsive front-ends that hold every detail of the design in a real browser.</p>
+						<ul class="exp-tags">
+							<li>HTML &amp; CSS</li>
+							<li>Bootstrap 5</li>
+							<li>Responsive UI</li>
+							<li>Design handoff</li>
+						</ul>
+					</div>
+				</li>
+
+				<li class="exp-item">
+					<span class="exp-step" aria-hidden="true">04</span>
+					<div class="exp-body">
+						<h3 class="exp-role">Digital Marketing</h3>
+						<p class="exp-desc">Alongside the product work, I design posters and graphics, and handle SEO for WordPress sites so the work finds the people it was made for.</p>
+						<ul class="exp-tags">
+							<li>Graphic design</li>
+							<li>Posters</li>
+							<li>SEO</li>
+							<li>Rank Math</li>
+						</ul>
+					</div>
+				</li>
+			</ol>
 		</div>
 	</section>
 
