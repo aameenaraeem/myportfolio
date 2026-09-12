@@ -19,11 +19,8 @@ $('.close').click(function() {
 (function($) {
     'use strict';
 
-    // Main Navigation
-    $( '.hamburger-menu' ).on( 'click', function() {
-        $(this).toggleClass('open');
-        $('.site-navigation').toggleClass('show');
-    });
+    // Main Navigation — desktop/mobile now share the black circle scroll menu
+    // Legacy hamburger toggle kept inert if markup is reintroduced elsewhere.
 
 
     
@@ -195,6 +192,57 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     var pageWipe = document.getElementById('pageWipe');
+
+    var removePageWipe = function(wipeEl) {
+        var wipe = wipeEl || document.getElementById('pageWipe');
+        document.documentElement.classList.remove('page-enter');
+        if (wipe && wipe.parentNode) {
+            wipe.parentNode.removeChild(wipe);
+        }
+    };
+
+    // Browser back/forward can restore a page from bfcache while the black
+    // wipe is still covering it. Clear that frozen overlay so home is visible.
+    var recoverFromHistory = function() {
+        document.documentElement.classList.remove('page-enter');
+        document.body.classList.remove('menu-open', 'is-preloading');
+        removePageWipe();
+
+        var intro = document.getElementById('introPreloader');
+        if (intro && intro.parentNode) {
+            intro.parentNode.removeChild(intro);
+        }
+        document.documentElement.classList.add('skip-intro');
+
+        if (siteHeader) {
+            siteHeader.classList.add('is-ready');
+        }
+        if (heroBanner) {
+            heroBanner.classList.add('active');
+        }
+    };
+
+    window.addEventListener('pageshow', function(event) {
+        if (event.persisted) {
+            recoverFromHistory();
+            return;
+        }
+
+        // Non-bfcache back can still leave a covering wipe if navigation aborted
+        var wipe = document.getElementById('pageWipe');
+        if (wipe && wipe.classList.contains('is-cover') && !wipe.classList.contains('is-reveal') && !document.documentElement.classList.contains('page-enter')) {
+            removePageWipe(wipe);
+        }
+    });
+
+    window.addEventListener('pagehide', function() {
+        document.documentElement.classList.remove('page-enter');
+        var wipe = document.getElementById('pageWipe');
+        if (wipe) {
+            wipe.classList.remove('is-cover', 'is-holding', 'is-reveal');
+        }
+    });
+
     var shouldRevealWipe = pageWipe && (
         pageWipe.classList.contains('is-holding') ||
         document.documentElement.classList.contains('page-enter')
@@ -207,10 +255,7 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         });
         var clearWipe = function() {
-            document.documentElement.classList.remove('page-enter');
-            if (pageWipe.parentNode) {
-                pageWipe.parentNode.removeChild(pageWipe);
-            }
+            removePageWipe(pageWipe);
         };
         pageWipe.addEventListener('transitionend', function(evt) {
             if (evt.propertyName !== 'transform') return;
@@ -218,8 +263,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
         setTimeout(clearWipe, 800);
     } else if (pageWipe && pageWipe.parentNode) {
-        document.documentElement.classList.remove('page-enter');
-        pageWipe.parentNode.removeChild(pageWipe);
+        removePageWipe(pageWipe);
     }
 
     function isPageChange(link) {
@@ -286,11 +330,36 @@ document.addEventListener("DOMContentLoaded", function() {
         var target = document.querySelector(hash);
         if (!target) return;
         event.preventDefault();
-        event.stopImmediatePropagation();
-        target.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
-        if (history.pushState) {
-            history.pushState(null, '', hash);
+
+        // Close the full-screen menu first — otherwise overflow:hidden blocks
+        // scrolling and the black overlay stays on top of the section.
+        var menu = document.getElementById('scrollMenu');
+        var menuBtn = document.getElementById('scrollMenuBtn');
+        if (menu && menu.classList.contains('is-open')) {
+            menu.classList.remove('is-open');
+            menu.setAttribute('aria-hidden', 'true');
+            if (menuBtn) {
+                menuBtn.classList.remove('is-open');
+                menuBtn.setAttribute('aria-expanded', 'false');
+            }
+            document.body.classList.remove('menu-open');
         }
+
+        var goToSection = function() {
+            target.scrollIntoView({
+                behavior: prefersReducedMotion ? 'auto' : 'smooth',
+                block: 'start'
+            });
+            if (history.pushState) {
+                history.pushState(null, '', hash);
+            } else {
+                location.hash = hash;
+            }
+        };
+
+        requestAnimationFrame(function() {
+            requestAnimationFrame(goToSection);
+        });
     }, true);
 
     document.querySelectorAll('.scroll-menu-label[data-label]').forEach(function(label) {

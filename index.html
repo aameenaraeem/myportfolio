@@ -4,6 +4,8 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Ibrahim</title>
+	<link rel="icon" href="assets/images/portfolio/Asset%203.svg" type="image/svg+xml">
+	<link rel="apple-touch-icon" href="assets/images/portfolio/Asset%203.svg">
 	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Lato:300" rel="stylesheet" type="text/css">
 	<style>
@@ -45,9 +47,11 @@
 			if (arriving) sessionStorage.removeItem('pageEnter');
 		} catch (e) {}
 
-		if (skipIntro) {
+		if (arriving) {
+			skipIntro = true;
+			document.documentElement.classList.add('skip-intro', 'page-enter');
+		} else if (skipIntro) {
 			document.documentElement.classList.add('skip-intro');
-			if (arriving) document.documentElement.classList.add('page-enter');
 		} else if (!location.hash) {
 			window.scrollTo(0, 0);
 		}
@@ -173,12 +177,6 @@
 						<span></span>
 					</span>
 				</button>
-				<div class="hamburger-menu d-lg-none">
-					<span></span>
-					<span></span>
-					<span></span>
-					<span></span>
-				</div>
 			</div>
 		</div>
 	</header>
@@ -197,7 +195,7 @@
 
 			<ul class="scroll-menu-nav">
 				<li>
-					<a class="smoothscroll" href="#curated">
+					<a class="smoothscroll" href="#port">
 						<span class="scroll-menu-num">01</span>
 						<span class="scroll-menu-label" data-label="Work"></span>
 					</a>
@@ -224,7 +222,10 @@
 					<li><a href="https://www.linkedin.com/in/ibrahim-bathusa-573062217" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
 					<li><a href="https://www.facebook.com/ibrahim.niyas.3781" target="_blank" rel="noopener noreferrer">Facebook</a></li>
 				</ul>
-				<a class="scroll-menu-footer-contact smoothscroll" href="#contact">Get in touch</a>
+				<a class="scroll-menu-inquire smoothscroll" href="#contact">
+					INQUIRE
+					<span class="cta-arrow" aria-hidden="true">→</span>
+				</a>
 			</div>
 		</div>
 	</nav>
@@ -624,7 +625,7 @@
 			<div class="contact-intro">
 				<div class="contact-intro-top">
 					<h2 class="contact-heading">Let's talk.</h2>
-					<p class="contact-copy">Have a project or need help? Fill out the form, and we'll get back to you soon.</p>
+					<p class="contact-copy">Have a project or need help? Fill out the form, and I'll get back to you soon.</p>
 				</div>
 				<ul class="contact-socials">
 					<li>

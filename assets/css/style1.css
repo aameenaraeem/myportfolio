@@ -796,6 +796,14 @@ body {
     background: #ffffff;
 }
 
+.dark-theme .scroll-menu-btn {
+    background: #ffffff;
+}
+
+.dark-theme .scroll-menu-lines span {
+    background: #111111;
+}
+
 .site-header.is-compact .scroll-menu-btn:hover,
 .site-header.is-compact .scroll-menu-btn:focus-visible,
 .site-header.is-compact .scroll-menu-btn.is-open {
@@ -1038,7 +1046,8 @@ body {
 }
 
 .scroll-menu-footer-email,
-.scroll-menu-footer-contact {
+.scroll-menu-footer-contact,
+.scroll-menu-inquire {
     font-size: 13px;
     font-weight: 500;
     color: #ffffff !important;
@@ -1050,8 +1059,43 @@ body {
     justify-self: start;
 }
 
-.scroll-menu-footer-contact {
+.scroll-menu-footer-contact,
+.scroll-menu-inquire {
     justify-self: end;
+}
+
+.scroll-menu-inquire {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 48px;
+    padding: 14px 28px;
+    border-radius: 999px;
+    background: #ffffff;
+    color: #111111 !important;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1;
+    transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease, opacity 0.25s ease;
+}
+
+.scroll-menu-inquire .cta-arrow {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+    transform: translateY(-0.5px);
+}
+
+.scroll-menu-inquire:hover,
+.scroll-menu-inquire:focus {
+    background: #f0f0f0;
+    color: #111111 !important;
+    opacity: 1;
+    text-decoration: none;
 }
 
 .scroll-menu-footer-socials {
@@ -1080,25 +1124,96 @@ body {
     background: transparent;
 }
 
+.scroll-menu-footer .scroll-menu-inquire:hover,
+.scroll-menu-footer .scroll-menu-inquire:focus {
+    background: #f0f0f0;
+    color: #111111 !important;
+    opacity: 1;
+}
+
 @media screen and (max-width: 991px) {
+    .scroll-menu-panel {
+        padding: 18px var(--page-gutter) max(24px, env(safe-area-inset-bottom));
+        overflow-x: hidden;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
+    }
+
+    .scroll-menu-bar {
+        min-height: 56px;
+        margin-bottom: clamp(16px, 3vh, 28px);
+    }
+
+    .scroll-menu-brand img {
+        width: 52px;
+        height: 52px;
+    }
+
+    .scroll-menu-close {
+        width: 44px;
+        height: 44px;
+    }
+
+    .scroll-menu-close span {
+        width: 16px;
+    }
+
+    .scroll-menu-nav {
+        gap: clamp(12px, 2.4vh, 24px);
+        justify-content: flex-start;
+        padding: 8px 0 28px;
+        width: 100%;
+    }
+
     .scroll-menu-nav a {
-        font-size: clamp(32px, 10vw, 56px);
+        font-size: clamp(30px, 9.5vw, 52px);
+        gap: 12px;
     }
 
     .scroll-menu-footer {
         grid-template-columns: 1fr;
         justify-items: center;
         text-align: center;
-        gap: 16px;
+        gap: 14px;
+        margin-top: auto;
+        padding-bottom: 8px;
     }
 
     .scroll-menu-footer-email,
-    .scroll-menu-footer-contact {
+    .scroll-menu-footer-contact,
+    .scroll-menu-inquire {
         justify-self: center;
+        font-size: 13px;
+    }
+
+    .scroll-menu-inquire {
+        width: min(100%, 280px);
+        min-height: 48px;
+        padding: 14px 24px;
+        margin-top: 4px;
     }
 
     .scroll-menu-footer-socials {
-        gap: 18px;
+        gap: 16px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .scroll-menu-footer-socials a {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .scroll-menu-nav a {
+        font-size: clamp(26px, 10.5vw, 36px);
+        gap: 10px;
+    }
+
+    .scroll-menu-footer-email {
+        font-size: 12px;
+        word-break: break-all;
     }
 }
 
@@ -1436,52 +1551,121 @@ body.menu-open {
     }
 
     .site-navigation {
-        position: static;
-        transform: none;
-        height: auto;
+        display: none;
     }
 
     .header-actions {
         margin-left: auto;
-        gap: 12px;
+        gap: 10px;
+        align-items: center;
     }
 
-    .cta-btn {
-        padding: 10px 16px;
-        font-size: 11px;
-    }
-
-    .site-navigation ul {
+    /* Inquire lives in the open menu on mobile */
+    .header-actions .cta-btn {
         display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        flex-direction: column;
-        gap: 0;
+    }
+
+    .hamburger-menu {
+        display: none !important;
+    }
+
+    /* Same circle menu as desktop, always visible on mobile */
+    .scroll-menu-btn {
+        position: relative;
+        right: auto;
+        top: auto;
+        width: 44px;
+        height: 44px;
+        transform: none;
+        opacity: 1;
+        pointer-events: auto;
+        flex-shrink: 0;
+    }
+
+    .scroll-menu-lines {
+        opacity: 1;
+        transform: scale(1);
+        gap: 6px;
+        width: 16px;
+    }
+
+    .site-header.is-compact .scroll-menu-btn,
+    .site-header.is-compact .scroll-menu-btn:hover,
+    .site-header.is-compact .scroll-menu-btn:focus-visible,
+    .site-header.is-compact .scroll-menu-btn.is-open {
+        opacity: 1;
+        transform: none;
+        pointer-events: auto;
+        transition-delay: 0s;
+    }
+
+    .site-header.is-compact .scroll-menu-btn:hover .scroll-menu-lines,
+    .site-header.is-compact .scroll-menu-btn:focus-visible .scroll-menu-lines,
+    .site-header.is-compact .scroll-menu-btn.is-open .scroll-menu-lines {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    /* Keep theme toggle usable on mobile */
+    .site-header.is-compact .header-actions .moon,
+    .site-header.is-compact .header-actions .sun {
+        opacity: 1;
+        transform: none;
+        pointer-events: auto;
+    }
+
+    /* White sticky bar while scrolling on mobile only */
+    .site-header.is-compact {
         background: #ffffff;
-        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
-        padding: 16px 0 24px;
-        z-index: 9999;
+        border-bottom-color: #e6e6e6;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
     }
 
-    .site-navigation.show ul {
-        display: flex;
+    .dark-theme .site-header.is-compact {
+        background: var(--page-bg);
+        border-bottom-color: rgba(255, 255, 255, 0.08);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .site-header-inner {
+        height: 72px;
+        column-gap: 12px;
     }
 
-    .site-navigation ul li {
-        padding: 0;
-        height: auto;
+    .site-logo {
+        width: 42px;
+        height: 42px;
     }
 
-    .site-navigation ul li a {
-        justify-content: center;
-        height: auto;
-        padding: 14px 20px;
+    .header-actions {
+        gap: 8px;
     }
 
-    .dark-theme .site-navigation ul {
-        background: #1b1f29;
+    .header-actions .moon,
+    .header-actions .sun {
+        width: 22px;
+        height: 22px;
+    }
+
+    .scroll-menu-btn {
+        width: 40px;
+        height: 40px;
+    }
+
+    .scroll-menu-lines {
+        width: 14px;
+        gap: 5px;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .scroll-menu-btn {
+        width: 38px;
+        height: 38px;
     }
 }
 
@@ -1610,6 +1794,12 @@ h1.hero-title {
 @media screen and (max-width: 991px) {
     .s-intro {
         --hero-header-offset: 80px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .s-intro {
+        --hero-header-offset: 72px;
     }
 }
 
