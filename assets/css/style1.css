@@ -516,6 +516,8 @@ body {
     padding-left: var(--page-gutter);
     padding-right: var(--page-gutter);
     box-sizing: border-box;
+    /* Keep compact-nav translate/scale from expanding page overflow */
+    overflow: hidden;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     opacity: 0;
