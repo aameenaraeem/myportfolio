@@ -173,6 +173,64 @@ document.addEventListener("DOMContentLoaded", function() {
             }, { threshold: 0.16, rootMargin: '0px 0px -10% 0px' });
             portObserver.observe(portSection);
         }
+
+        var portTabs = portSection.querySelectorAll('.port-tab');
+        var portPanels = portSection.querySelectorAll('.port-panel');
+
+        var activatePortTab = function(nextTab, fromKeyboard) {
+            if (!nextTab || nextTab.classList.contains('is-active')) {
+                if (fromKeyboard) nextTab.focus();
+                return;
+            }
+
+            var nextId = nextTab.getAttribute('aria-controls');
+
+            portTabs.forEach(function(tab) {
+                var on = tab === nextTab;
+                tab.classList.toggle('is-active', on);
+                tab.setAttribute('aria-selected', on ? 'true' : 'false');
+                tab.tabIndex = on ? 0 : -1;
+            });
+
+            portPanels.forEach(function(panel) {
+                var on = panel.id === nextId;
+                panel.classList.toggle('is-active', on);
+                if (on) {
+                    panel.removeAttribute('hidden');
+                    panel.classList.remove('is-switching');
+                    void panel.offsetWidth;
+                    panel.classList.add('is-switching');
+                } else {
+                    panel.setAttribute('hidden', '');
+                    panel.classList.remove('is-switching');
+                }
+            });
+
+            if (fromKeyboard) nextTab.focus();
+        };
+
+        portTabs.forEach(function(tab, index) {
+            tab.addEventListener('click', function() {
+                activatePortTab(tab, false);
+            });
+
+            tab.addEventListener('keydown', function(event) {
+                var nextIndex = index;
+                if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+                    nextIndex = (index + 1) % portTabs.length;
+                } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+                    nextIndex = (index - 1 + portTabs.length) % portTabs.length;
+                } else if (event.key === 'Home') {
+                    nextIndex = 0;
+                } else if (event.key === 'End') {
+                    nextIndex = portTabs.length - 1;
+                } else {
+                    return;
+                }
+                event.preventDefault();
+                activatePortTab(portTabs[nextIndex], true);
+            });
+        });
     }
 
     var expSection = document.getElementById('experience');
@@ -235,13 +293,9 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    window.addEventListener('pagehide', function() {
-        document.documentElement.classList.remove('page-enter');
-        var wipe = document.getElementById('pageWipe');
-        if (wipe) {
-            wipe.classList.remove('is-cover', 'is-holding', 'is-reveal');
-        }
-    });
+    // Keep the covering wipe in place until the document is actually gone.
+    // Stripping is-cover here made the overlay vanish for a frame, so the
+    // next page's black screen looked like a second blink.
 
     var shouldRevealWipe = pageWipe && (
         pageWipe.classList.contains('is-holding') ||
@@ -249,12 +303,19 @@ document.addEventListener("DOMContentLoaded", function() {
     );
 
     if (shouldRevealWipe && !prefersReducedMotion) {
+        pageWipe.classList.remove('is-cover');
+        pageWipe.classList.add('is-holding');
+        pageWipe.getBoundingClientRect();
         requestAnimationFrame(function() {
             requestAnimationFrame(function() {
+                if (!pageWipe.parentNode) return;
                 pageWipe.classList.add('is-reveal');
             });
         });
+        var wipeCleared = false;
         var clearWipe = function() {
+            if (wipeCleared) return;
+            wipeCleared = true;
             removePageWipe(pageWipe);
         };
         pageWipe.addEventListener('transitionend', function(evt) {
@@ -262,7 +323,7 @@ document.addEventListener("DOMContentLoaded", function() {
             clearWipe();
         });
         setTimeout(clearWipe, 800);
-    } else if (pageWipe && pageWipe.parentNode) {
+    } else if (pageWipe && pageWipe.parentNode && !pageWipe.classList.contains('is-cover')) {
         removePageWipe(pageWipe);
     }
 
@@ -294,11 +355,11 @@ document.addEventListener("DOMContentLoaded", function() {
         var wipe = document.querySelector('.page-wipe');
         if (!wipe) {
             wipe = document.createElement('div');
-            wipe.className = 'page-wipe';
             wipe.id = 'pageWipe';
             document.body.appendChild(wipe);
         }
 
+        wipe.className = 'page-wipe';
         wipe.getBoundingClientRect();
         wipe.classList.add('is-cover');
 

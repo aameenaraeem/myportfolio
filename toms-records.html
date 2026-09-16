@@ -3,6 +3,19 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		.page-wipe { position: fixed; inset: 0; z-index: 20000; background: #000; transform: translateY(100%); pointer-events: none; }
+		.page-wipe.is-holding, html.page-enter .page-wipe { transform: translateY(0); pointer-events: auto; }
+		html.page-enter, html.page-enter body { background: #000; }
+	</style>
+	<script>
+		try {
+			if (sessionStorage.getItem('pageEnter') === '1') {
+				sessionStorage.removeItem('pageEnter');
+				document.documentElement.classList.add('page-enter');
+			}
+		} catch (e) {}
+	</script>
 	<title>Tom's Records — Ibrahim</title>
 	<link rel="icon" href="assets/images/portfolio/Asset%203.svg" type="image/svg+xml">
 	<link rel="apple-touch-icon" href="assets/images/portfolio/Asset%203.svg">

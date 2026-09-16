@@ -26,6 +26,10 @@
 			transform: translateY(-101%);
 			pointer-events: none;
 		}
+		html.page-enter,
+		html.page-enter body {
+			background: #000;
+		}
 	</style>
 	<script>
 		if ('scrollRestoration' in history) {
@@ -73,6 +77,12 @@
 <body class="is-preloading">
 
 	<div class="page-wipe" id="pageWipe" aria-hidden="true"></div>
+	<script>
+		if (document.documentElement.classList.contains('page-enter')) {
+			var enterWipe = document.getElementById('pageWipe');
+			if (enterWipe) enterWipe.classList.add('is-holding');
+		}
+	</script>
 
 	<div class="intro-preloader" id="introPreloader" aria-hidden="false" role="status" aria-label="Loading">
 		<div class="intro-preloader-panel intro-preloader-left"></div>
@@ -456,72 +466,115 @@
 
 	<section id="port" class="port-section">
 		<header class="port-header">
-			<h2 class="port-heading">Design work</h2>
+			<h2 class="port-heading">Work</h2>
+			<div class="port-tabs" role="tablist" aria-label="Project categories">
+				<button type="button" class="port-tab is-active" role="tab" id="tab-design" aria-selected="true" aria-controls="panel-design">Design work</button>
+				<button type="button" class="port-tab" role="tab" id="tab-wordpress" aria-selected="false" aria-controls="panel-wordpress" tabindex="-1">WordPress</button>
+			</div>
 		</header>
-		<div class="port-grid">
-			<article class="port-card">
-				<a href="mudfield.html" class="port-card-media">
-					<img src="assets/images/portfolio/mudfield_mock.png" alt="Mudfield organic store">
-					<span class="port-card-arrow" aria-hidden="true">
-						<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-							<path d="M5 12h14"></path>
-							<path d="M13 6l6 6-6 6"></path>
-						</svg>
-					</span>
-				</a>
-				<div class="port-card-meta">
-					<h3 class="port-card-title"><a href="mudfield.html">Mudfield</a></h3>
-					<p class="port-card-role">E-commerce Website</p>
-				</div>
-			</article>
 
-			<article class="port-card">
-				<a href="toms-records.html" class="port-card-media">
-					<img src="assets/images/portfolio/toms_record.png" alt="Tom's Records and Hifi">
-					<span class="port-card-arrow" aria-hidden="true">
-						<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-							<path d="M5 12h14"></path>
-							<path d="M13 6l6 6-6 6"></path>
-						</svg>
-					</span>
-				</a>
-				<div class="port-card-meta">
-					<h3 class="port-card-title"><a href="toms-records.html">Tom's Records</a></h3>
-					<p class="port-card-role">Music Store Website</p>
-				</div>
-			</article>
+		<div class="port-panel is-active" role="tabpanel" id="panel-design" aria-labelledby="tab-design">
+			<div class="port-grid">
+				<article class="port-card">
+					<a href="mudfield.html" class="port-card-media">
+						<img src="assets/images/portfolio/mudfield_mock.png" alt="Mudfield organic store">
+						<span class="port-card-arrow" aria-hidden="true">
+							<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+								<path d="M5 12h14"></path>
+								<path d="M13 6l6 6-6 6"></path>
+							</svg>
+						</span>
+					</a>
+					<div class="port-card-meta">
+						<h3 class="port-card-title"><a href="mudfield.html">Mudfield</a></h3>
+						<p class="port-card-role">E-commerce Website</p>
+					</div>
+				</article>
 
-			<article class="port-card">
-				<a href="namahaana.html" class="port-card-media">
-					<img src="assets/images/portfolio/matri.png" alt="Namahaana Matrimony app">
-					<span class="port-card-arrow" aria-hidden="true">
-						<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-							<path d="M5 12h14"></path>
-							<path d="M13 6l6 6-6 6"></path>
-						</svg>
-					</span>
-				</a>
-				<div class="port-card-meta">
-					<h3 class="port-card-title"><a href="namahaana.html">Namahaana</a></h3>
-					<p class="port-card-role">Matrimony App</p>
-				</div>
-			</article>
+				<article class="port-card">
+					<a href="ams.html" class="port-card-media">
+						<img src="assets/images/portfolio/ams.png" alt="AMS Athlete Management System dashboard">
+						<span class="port-card-arrow" aria-hidden="true">
+							<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+								<path d="M5 12h14"></path>
+								<path d="M13 6l6 6-6 6"></path>
+							</svg>
+						</span>
+					</a>
+					<div class="port-card-meta">
+						<h3 class="port-card-title"><a href="ams.html">AMS</a></h3>
+						<p class="port-card-role">Athlete Management Dashboard</p>
+					</div>
+				</article>
 
-			<article class="port-card">
-				<a href="salon-booking.html" class="port-card-media">
-					<img src="assets/images/portfolio/saloon_mockup.png" alt="Salon booking app">
-					<span class="port-card-arrow" aria-hidden="true">
-						<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-							<path d="M5 12h14"></path>
-							<path d="M13 6l6 6-6 6"></path>
-						</svg>
-					</span>
-				</a>
-				<div class="port-card-meta">
-					<h3 class="port-card-title"><a href="salon-booking.html">Salon Booking</a></h3>
-					<p class="port-card-role">Mobile App Design</p>
-				</div>
-			</article>
+				<article class="port-card">
+					<a href="namahaana.html" class="port-card-media">
+						<img src="assets/images/portfolio/matri.png" alt="Namahaana Matrimony app">
+						<span class="port-card-arrow" aria-hidden="true">
+							<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+								<path d="M5 12h14"></path>
+								<path d="M13 6l6 6-6 6"></path>
+							</svg>
+						</span>
+					</a>
+					<div class="port-card-meta">
+						<h3 class="port-card-title"><a href="namahaana.html">Namahaana</a></h3>
+						<p class="port-card-role">Matrimony App</p>
+					</div>
+				</article>
+
+				<article class="port-card">
+					<a href="salon-booking.html" class="port-card-media">
+						<img src="assets/images/portfolio/saloon_mockup.png" alt="Salon booking app">
+						<span class="port-card-arrow" aria-hidden="true">
+							<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+								<path d="M5 12h14"></path>
+								<path d="M13 6l6 6-6 6"></path>
+							</svg>
+						</span>
+					</a>
+					<div class="port-card-meta">
+						<h3 class="port-card-title"><a href="salon-booking.html">Salon Booking</a></h3>
+						<p class="port-card-role">Mobile App Design</p>
+					</div>
+				</article>
+			</div>
+		</div>
+
+		<div class="port-panel" role="tabpanel" id="panel-wordpress" aria-labelledby="tab-wordpress" hidden>
+			<div class="port-grid">
+				<article class="port-card">
+					<a href="granville.html" class="port-card-media">
+						<img src="assets/images/portfolio/gran.png" alt="Granville Studio and Function Centre">
+						<span class="port-card-arrow" aria-hidden="true">
+							<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+								<path d="M5 12h14"></path>
+								<path d="M13 6l6 6-6 6"></path>
+							</svg>
+						</span>
+					</a>
+					<div class="port-card-meta">
+						<h3 class="port-card-title"><a href="granville.html">Granville Studio</a></h3>
+						<p class="port-card-role">WordPress Website</p>
+					</div>
+				</article>
+
+				<article class="port-card">
+					<a href="toms-records.html" class="port-card-media">
+						<img src="assets/images/portfolio/toms_record.png" alt="Tom's Records and Hifi">
+						<span class="port-card-arrow" aria-hidden="true">
+							<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+								<path d="M5 12h14"></path>
+								<path d="M13 6l6 6-6 6"></path>
+							</svg>
+						</span>
+					</a>
+					<div class="port-card-meta">
+						<h3 class="port-card-title"><a href="toms-records.html">Tom's Records</a></h3>
+						<p class="port-card-role">Music Store Website</p>
+					</div>
+				</article>
+			</div>
 		</div>
 	</section>
 
