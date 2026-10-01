@@ -2577,6 +2577,20 @@ html.page-enter .page-wipe.is-reveal {
     height: auto;
 }
 
+.project-case {
+    margin: clamp(40px, 6vw, 72px) 0 0;
+    padding: 0;
+    width: 100%;
+    max-width: 100%;
+}
+
+.project-case img {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+}
+
 .dark-theme .project-title,
 .dark-theme .project-visit:hover {
     color: #f3f3f3;
